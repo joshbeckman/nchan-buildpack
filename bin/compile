@@ -24,10 +24,11 @@ fetch_nchan_tarball() {
 }
 
 fetch_nginx_tarball() {
-    local version="1.9.7"
-    local tarball_file="nginx-$version.tgz"
+    # http://nginx.org/download/nginx-1.10.1.tar.gz
+    local version="1.10.1"
+    local tarball_file="nginx-$version.tar.gz"
     local stack="cedar-14"
-    local nginx_tarball_url="https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/nginx/$stack/nginx-$version-ngx_mruby.tgz"
+    local nginx_tarball_url="https://nginx.org/download/$tarball_file"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
     if [ -f "$dest_path" ]; then
@@ -41,6 +42,7 @@ mkdir -p $build_dir/bin
 mkdir -p $build_dir/vendor
 $(fetch_nginx_tarball) | tar xzC $build_dir/bin
 $(fetch_nchan_tarball) | tar xzC $build_dir/vendor
+# see https://github.com/ryandotsmith/nginx-buildpack/blob/005ca0374e3cf61a29fb0f9041a7315677af1972/scripts/build_nginx.sh for building
 nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
 nchan_version=$(ls $nchan_version/vendor 2>&1 | head -1 | awk '{ print $NF  }')
 cp -a $bp_dir/scripts/boot $build_dir/bin/boot

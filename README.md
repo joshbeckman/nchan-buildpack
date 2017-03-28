@@ -20,7 +20,9 @@ TODO
 - [nchan][0]
 - Heroku's [static/nginx buildpack][1]
 - Heroku [buildpack documentation][2]
+- [nginx buildpack][3]
 
 [0]: https://github.com/slact/nchan
 [1]: https://github.com/heroku/heroku-buildpack-static
 [2]: https://devcenter.heroku.com/articles/buildpack-api
+[3]: https://github.com/ryandotsmith/nginx-buildpack
