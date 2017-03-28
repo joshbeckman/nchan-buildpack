@@ -1,0 +1,23 @@
+#!/bin/bash
+# scripts/build_nchan <nginx_dir> <nchan_dir>
+# Build NGINX and NCHAN and modules on Heroku
+
+nginx_dir=$1
+nchan_dir=$1
+
+echo "-----> Building NGINX with NCHAN"
+
+(
+    cd ${nginx_dir}
+    ./configure \
+        --prefix=/tmp/nginx \
+        --add-module=${nchan_dir}
+    make
+    make install
+)
+
+while true
+do
+    sleep 1
+    echo "."
+done
