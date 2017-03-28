@@ -7,12 +7,13 @@ build_dir=$1
 cache_dir=$2
 env_dir=$3
 bp_dir=$(dirname $(dirname $0))
+nchan_version="1.1.3"
+nginx_version="1.10.1"
+stack="cedar-14"
 
 fetch_nchan_tarball() {
     # https://codeload.github.com/slact/nchan/tar.gz/v1.1.3
-    local version="1.1.3"
-    local tarball_file="v$version"
-    local stack="cedar-14"
+    local tarball_file="v$nchan_version"
     local nchan_tarball_url="https://codeload.github.com/slact/nchan/tar.gz/$tarball_file"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
@@ -25,9 +26,7 @@ fetch_nchan_tarball() {
 
 fetch_nginx_tarball() {
     # http://nginx.org/download/nginx-1.10.1.tar.gz
-    local version="1.10.1"
-    local tarball_file="nginx-$version.tar.gz"
-    local stack="cedar-14"
+    local tarball_file="nginx-$nginx_version.tar.gz"
     local nginx_tarball_url="https://nginx.org/download/$tarball_file"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
@@ -42,13 +41,15 @@ mkdir -p $build_dir/bin
 mkdir -p $build_dir/vendor
 $(fetch_nginx_tarball) | tar xzC $build_dir/bin
 $(fetch_nchan_tarball) | tar xzC $build_dir/vendor
-# see https://github.com/ryandotsmith/nginx-buildpack/blob/005ca0374e3cf61a29fb0f9041a7315677af1972/scripts/build_nginx.sh for building
+
 nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
 nchan_version=$(ls $nchan_version/vendor 2>&1 | head -1 | awk '{ print $NF  }')
 cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 cp -a $bp_dir/scripts/config $build_dir/bin/config
 echo "-----> Installed ${nginx_version} to /app/bin"
 echo "-----> Installed nchan ${nchan_version} to /app/vendor"
+
+$bp_dir/scripts/build_nchan $build_dir/bin/nginx-$nginx_version $build_dir/vendor/v$nchan_version
 
 mkdir -p $build_dir/config
 cp $bp_dir/scripts/config/templates/mime.types $build_dir/config
