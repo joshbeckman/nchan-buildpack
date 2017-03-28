@@ -3,7 +3,7 @@
 
 build_dir=$1
 
-if [ ! -f "$build_dir/nchan_config.json" ]; then
+if [ ! -f "$build_dir/nchan.json" ]; then
     exit 1
 fi
 
