@@ -8,6 +8,21 @@ cache_dir=$2
 env_dir=$3
 bp_dir=$(dirname $(dirname $0))
 
+fetch_nchan_tarball() {
+    # https://codeload.github.com/slact/nchan/tar.gz/v1.1.3
+    local version="1.1.3"
+    local tarball_file="v$version"
+    local stack="cedar-14"
+    local nchan_tarball_url="https://codeload.github.com/slact/nchan/tar.gz/$tarball_file"
+    local dest_path="$cache_dir/$stack/$tarball_file"
+
+    if [ -f "$dest_path" ]; then
+        echo -n "cat $dest_path"
+    else
+        echo -n "curl -L $nchan_tarball_url"
+    fi
+}
+
 fetch_nginx_tarball() {
     local version="1.9.7"
     local tarball_file="nginx-$version.tgz"
@@ -23,11 +38,15 @@ fetch_nginx_tarball() {
 }
 
 mkdir -p $build_dir/bin
+mkdir -p $build_dir/vendor
 $(fetch_nginx_tarball) | tar xzC $build_dir/bin
+$(fetch_nchan_tarball) | tar xzC $build_dir/vendor
 nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
+nchan_version=$(ls $nchan_version/vendor 2>&1 | head -1 | awk '{ print $NF  }')
 cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 cp -a $bp_dir/scripts/config $build_dir/bin/config
 echo "-----> Installed ${nginx_version} to /app/bin"
+echo "-----> Installed nchan ${nchan_version} to /app/vendor"
 
 mkdir -p $build_dir/config
 cp $bp_dir/scripts/config/templates/mime.types $build_dir/config
