@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
+build_dir=$1
+
+if [ ! -f "$build_dir/static.json" ]; then
+    exit 1
+fi
+
+echo 'Static HTML'
+exit 0
