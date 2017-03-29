@@ -38,25 +38,30 @@ fetch_nginx_tarball() {
 }
 
 mkdir -p $build_dir/bin
-mkdir -p $build_dir/vendor
+mkdir -p $build_dir/config
+mkdir -p $build_dir/logs
+
 echo "-----> nchan-buildpack: Downloading nginx ${nginx_version}"
 $(fetch_nginx_tarball) | tar xzC $build_dir/bin
 echo "       nchan-buildpack: Downloaded nginx-${nginx_version} to ./bin"
+
 echo "-----> nchan-buildpack: Downloading nchan ${nchan_version}"
 $(fetch_nchan_tarball) | tar xzC $build_dir/bin/nginx-${nginx_version}
 echo "       nchan-buildpack: Downloaded nchan-${nchan_version} to ./bin/nginx-${nginx_version}"
 
+echo "-----> nchan-buildpack: Installing nginx ${nginx_version} configured with nchan ${nchan_version}"
 $bp_dir/scripts/build_nchan $build_dir $build_dir/bin/nginx-$nginx_version nchan-$nchan_version
-
-cp -a $bp_dir/scripts/boot $build_dir/bin/boot
-cp -a $bp_dir/scripts/config $build_dir/bin/config
-# cp $build_dir/bin/nginx/sbin/nginx $build_dir/bin/nginx
 echo "-----> nchan-buildpack: Installed nginx ${nginx_version} configured with nchan ${nchan_version} to /app/bin"
 
+cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 
-mkdir -p $build_dir/config
 cp $bp_dir/scripts/config/templates/mime.types $build_dir/config
-
-mkdir -p $build_dir/logs
+if [ -f "$bp_dir/nchan.conf.erb" ]; then
+    cp $bp_dir/nchan.conf.erb $build_dir/config
+    echo "       nchan-buildpack: Using custom nchan config"
+else
+    cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/config
+    echo "       nchan-buildpack: Using default nchan config template"
+fi
 
 exit 0
