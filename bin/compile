@@ -57,6 +57,7 @@ cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 
 cp $bp_dir/scripts/config/templates/mime.types $build_dir/bin/config
 cp $bp_dir/scripts/config/make-config $build_dir/bin/config
+cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/bin/config/nchan.conf
 if [ -f "$bp_dir/nchan.conf.erb" ]; then
     cp $bp_dir/nchan.conf.erb $build_dir/bin/config
     echo "       nchan-buildpack: Using custom nchan config"

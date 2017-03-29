@@ -7,4 +7,5 @@ TEMPLATE     = File.join(File.dirname(__FILE__), 'nchan.conf.erb')
 NCHAN_CONFIG = File.join(File.dirname(__FILE__), 'nchan.conf')
 
 erb = ERB.new(File.read(TEMPLATE)).result
+puts erb
 File.write(NCHAN_CONFIG, erb)
