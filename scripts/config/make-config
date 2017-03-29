@@ -3,8 +3,8 @@
 require 'fileutils'
 require 'erb'
 
-TEMPLATE     = File.join(File.dirname(__FILE__), 'nchan.conf.erb')
-NCHAN_CONFIG = 'nchan.conf'
+TEMPLATE     = File.join(File.dirname(__FILE__), 'config/nchan.conf.erb')
+NCHAN_CONFIG = 'config/nchan.conf'
 
 erb = ERB.new(File.read(TEMPLATE)).result
 File.write(NCHAN_CONFIG, erb)

@@ -38,7 +38,7 @@ fetch_nginx_tarball() {
 }
 
 mkdir -p $build_dir/bin
-mkdir -p $build_dir/config
+mkdir -p $build_dir/bin/config
 mkdir -p $build_dir/logs
 
 echo "-----> nchan-buildpack: Downloading nginx ${nginx_version}"
@@ -55,12 +55,13 @@ echo "-----> nchan-buildpack: Installed nginx ${nginx_version} configured with n
 
 cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 
-cp $bp_dir/scripts/config/templates/mime.types $build_dir/config
+cp $bp_dir/scripts/config/templates/mime.types $build_dir/bin/config
+cp $bp_dir/scripts/config/make-config $build_dir/bin/config
 if [ -f "$bp_dir/nchan.conf.erb" ]; then
-    cp $bp_dir/nchan.conf.erb $build_dir/config
+    cp $bp_dir/nchan.conf.erb $build_dir/bin/config
     echo "       nchan-buildpack: Using custom nchan config"
 else
-    cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/config
+    cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/bin/config
     echo "       nchan-buildpack: Using default nchan config template"
 fi
 
