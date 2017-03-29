@@ -10,7 +10,7 @@ testNoDetect()
 }
 testDetect()
 {
-    touch ${BUILD_DIR}/nchan.json
+    touch ${BUILD_DIR}/nchan.conf.erb
 
     capture ${BUILDPACK_HOME}/bin/detect ${BUILD_DIR}
 
