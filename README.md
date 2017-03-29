@@ -4,7 +4,7 @@ This Heroku buildpack will automatically build, configure, and run [nchan][0] fo
 
 ## Usage
 
-This buildpack will only be triggered if your app (deployed to Heroku) contains a `nchan.json` file at its root. See below for configuration options.
+This buildpack will only be triggered if your app (deployed to Heroku) contains a `nchan.conf.erb` file at its root. See below for configuration options.
 
 To use the buildpack, run:
 ~~~sh
@@ -12,6 +12,14 @@ $ heroku buildpacks:add https://github.com/andjosh/nchan-buildpack.git
 ~~~
 
 ## Configuration/Options
+
+~~~sh
+# env variables available (with default)
+# set upon web server/process start
+NCHAN_WORKERS=4
+NCHAN_WORKER_CONNECTIONS=1024
+PORT=<set by heroku>
+~~~
 
 TODO
 
