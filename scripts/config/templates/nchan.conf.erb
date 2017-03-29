@@ -42,6 +42,7 @@ http {
                 location = /sub {
                         nchan_subscriber;
                         nchan_channel_id $arg_id;
+                        nchan_subscriber_timeout <%= ENV['NCHAN_SUB_TIMEOUT'] || 25 %>;
                 }
 
                 # You can now publish messages to channels by POSTing data to /pub?id=channel_id
@@ -53,12 +54,14 @@ http {
                 location = /pubsub {
                         nchan_pubsub;
                         nchan_channel_id $arg_id;
+                        nchan_subscriber_timeout <%= ENV['NCHAN_SUB_TIMEOUT'] || 25 %>;
                 }
 
                 location = /sub-split/(.*)$ {
                         nchan_subscriber;
                         nchan_channel_id "$1";
                         nchan_channel_id_split_delimiter ",";
+                        nchan_subscriber_timeout <%= ENV['NCHAN_SUB_TIMEOUT'] || 25 %>;
                         # GET /multisub-split/foo,bar,baz,a will be subscribed to:
                         # channels 'foo', 'bar', 'baz', and 'a'
                         # and will receive messages from all of the above.
