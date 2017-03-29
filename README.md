@@ -15,6 +15,20 @@ $ heroku buildpacks:add https://github.com/andjosh/nchan-buildpack.git
 
 TODO
 
+## Testing
+
+~~~sh
+git clone https://github.com/andjosh/nchan-buildpack.git
+git clone https://github.com/heroku/heroku-buildpack-testrunner.git
+~~~
+
+Once you have both installed, follow the directions in the [Heroku Buildpack testrunner README][4].
+
+~~~sh
+cd heroku-buildpack-testrunner
+./bin/run ../nchan-buildpack
+~~~
+
 ## Acknowledgements
 
 - [nchan][0]
@@ -26,3 +40,4 @@ TODO
 [1]: https://github.com/heroku/heroku-buildpack-static
 [2]: https://devcenter.heroku.com/articles/buildpack-api
 [3]: https://github.com/ryandotsmith/nginx-buildpack
+[4]: https://github.com/heroku/heroku-buildpack-testrunner

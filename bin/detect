@@ -7,5 +7,5 @@ if [ ! -f "$build_dir/nchan.json" ]; then
     exit 1
 fi
 
-echo 'NCHAN app'
+echo 'nchan-buildpack'
 exit 0

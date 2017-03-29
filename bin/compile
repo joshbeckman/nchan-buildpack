@@ -39,17 +39,20 @@ fetch_nginx_tarball() {
 
 mkdir -p $build_dir/bin
 mkdir -p $build_dir/vendor
+echo "-----> nchan-buildpack: Downloading nginx ${nginx_version}"
 $(fetch_nginx_tarball) | tar xzC $build_dir/bin
-$(fetch_nchan_tarball) | tar xzC $build_dir/vendor
+echo "       nchan-buildpack: Downloaded nginx-${nginx_version} to ./bin"
+echo "-----> nchan-buildpack: Downloading nchan ${nchan_version}"
+$(fetch_nchan_tarball) | tar xzC $build_dir/bin/nginx-${nginx_version}
+echo "       nchan-buildpack: Downloaded nchan-${nchan_version} to ./bin/nginx-${nginx_version}"
 
-nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
-nchan_version=$(ls $nchan_version/vendor 2>&1 | head -1 | awk '{ print $NF  }')
+$bp_dir/scripts/build_nchan $build_dir $build_dir/bin/nginx-$nginx_version nchan-$nchan_version
+
 cp -a $bp_dir/scripts/boot $build_dir/bin/boot
 cp -a $bp_dir/scripts/config $build_dir/bin/config
-echo "-----> Installed ${nginx_version} to /app/bin"
-echo "-----> Installed nchan ${nchan_version} to /app/vendor"
+# cp $build_dir/bin/nginx/sbin/nginx $build_dir/bin/nginx
+echo "-----> nchan-buildpack: Installed nginx ${nginx_version} configured with nchan ${nchan_version} to /app/bin"
 
-$bp_dir/scripts/build_nchan $build_dir/bin/nginx-$nginx_version $build_dir/vendor/v$nchan_version
 
 mkdir -p $build_dir/config
 cp $bp_dir/scripts/config/templates/mime.types $build_dir/config

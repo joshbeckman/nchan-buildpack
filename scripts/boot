@@ -85,7 +85,7 @@ echo "Starting nginx..." >&2
 (
     trap 'echo "nginx" >&3;' EXIT
     trap 'kill -TERM $! 2> /dev/null' TERM
-    "${HERE}/nginx" -p . -c config/nginx.conf &
+    "${HERE}/nginx/sbin/nginx" -p . -c config/nginx.conf &
     wait
 ) & pids+=($!)
 

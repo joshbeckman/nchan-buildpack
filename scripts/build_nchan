@@ -1,23 +1,18 @@
 #!/bin/bash
-# scripts/build_nchan <nginx_dir> <nchan_dir>
+# scripts/build_nchan <build_dir> <nginx_dir> <nchan_dir_relative>
 # Build NGINX and NCHAN and modules on Heroku
 
-nginx_dir=$1
-nchan_dir=$1
+build_dir=$1
+nginx_dir=$2
+nchan_dir_relative=$3
 
-echo "-----> Building NGINX with NCHAN"
+echo "-----> nchan-buildpack: Building NGINX with NCHAN"
 
 (
     cd ${nginx_dir}
     ./configure \
-        --prefix=/tmp/nginx \
-        --add-module=${nchan_dir}
+        --prefix=${build_dir}/bin/nginx \
+        --add-module=${nchan_dir_relative}
     make
     make install
 )
-
-while true
-do
-    sleep 1
-    echo "."
-done
