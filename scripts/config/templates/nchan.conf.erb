@@ -5,7 +5,7 @@ worker_processes <%= ENV['NCHAN_WORKERS'] || 4 %>;
 events {
 	use epoll;
 	accept_mutex on;
-	worker_connections <%= ENV['NCHAN_WORKERS'] || 1024 %>;
+	worker_connections <%= ENV['NCHAN_WORKER_CONNECTIONS'] || 1024 %>;
 }
 
 http {
@@ -64,11 +64,11 @@ http {
                         # and will receive messages from all of the above.
                 }
 
-		location / {
-			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-			proxy_set_header Host $http_host;
-			proxy_redirect off;
-			proxy_pass http://app_server;
-		}
+		# location / {
+		# 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		# 	proxy_set_header Host $http_host;
+		# 	proxy_redirect off;
+		# 	proxy_pass http://app_server;
+		# }
 	}
 }
