@@ -24,10 +24,10 @@ PORT=<set by heroku>
 
 See [configuration directives for nchan][5] to populate your own `nchan.conf.erb`.
 
-If you decide to use your own `Procfile` (e.g. you want to run a [local auth server for nchan][7]), be sure to also launch nchan by executing `bin/boot`. Here's an example running a node server:
+If you decide to use your own `Procfile` (e.g. you want to run a [local auth server for nchan][7]), be sure to also launch nchan by executing `bin/boot` and pass in your sister app launch command. Here's an example running a node server:
 
 ~~~sh
-web: bin/boot && npm start
+web: bin/boot npm start
 ~~~
 
 ## Testing
