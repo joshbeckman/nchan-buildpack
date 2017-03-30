@@ -27,7 +27,7 @@ See [configuration directives for nchan][5] to populate your own `nchan.conf.erb
 If you decide to use your own `Procfile` (e.g. you want to run a [local auth server for nchan][7]), be sure to also launch nchan by executing `bin/boot` along with your sister app. Here's an example running a node server:
 
 ~~~sh
-web: (npm start) & bin/boot
+web: (PORT=3000 npm start) & bin/boot
 ~~~
 
 ## Testing
