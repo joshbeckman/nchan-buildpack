@@ -59,11 +59,11 @@ cp $bp_dir/scripts/config/templates/mime.types $build_dir/bin/config
 cp $bp_dir/scripts/config/make-config $build_dir/bin/config
 cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/bin/config/nchan.conf
 if [ ! -s "$build_dir/nchan.conf.erb" ]; then
-    cp $build_dir/nchan.conf.erb $build_dir/bin/config
-    echo "       nchan-buildpack: Using custom nchan config"
-else
     cp $bp_dir/scripts/config/templates/nchan.conf.erb $build_dir/bin/config
     echo "       nchan-buildpack: Using default nchan config template"
+else
+    cp $build_dir/nchan.conf.erb $build_dir/bin/config
+    echo "       nchan-buildpack: Using custom nchan config"
 fi
 
 exit 0
