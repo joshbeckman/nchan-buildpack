@@ -89,16 +89,6 @@ echo "Starting nginx..." >&2
     wait
 ) & pids+=($!)
 
-# we are now launching a subshell for any other app running with NCHAN
-(
-    trap 'echo "app" >&3;' EXIT
-    trap 'kill -TERM $! 2> /dev/null' TERM
-    COMMAND=${@:$n}
-    echo "-----> nchan-buildpack: Starting sister app with cmd=$COMMAND"
-    $COMMAND
-    wait
-) & pids+=($!)
-
 # wait for something to come from the FIFO attached to FD 3, which means that
 # the given process was killed or has failed this will be interrupted by a
 # SIGTERM or SIGINT in the traps further up if the pipe unblocks and this
