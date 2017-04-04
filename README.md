@@ -13,6 +13,8 @@ $ heroku buildpacks:add https://github.com/andjosh/nchan-buildpack.git
 
 ## Configuration/Options
 
+This buildpack currently installs Nchan v1.1.3 and Nginx v1.10.1.
+
 ~~~sh
 # env variables available (with default) in the default nchan.conf
 # set upon web server/process start
