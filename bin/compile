@@ -7,8 +7,8 @@ build_dir=$1
 cache_dir=$2
 env_dir=$3
 bp_dir=$(dirname $(dirname $0))
-nchan_version="1.1.3"
-nginx_version="1.10.1"
+nchan_version="1.1.8"
+nginx_version="1.12.2"
 stack="cedar-14"
 
 fetch_nchan_tarball() {
