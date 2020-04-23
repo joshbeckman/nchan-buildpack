@@ -13,7 +13,7 @@ if [ $NCHAN_VERSION ]; then
     nchan_version=$NCHAN_VERSION
 fi
 if [ $NGINX_VERSION ]; then
-    nchan_version=$NGINX_VERSION
+    nginx_version=$NGINX_VERSION
 fi
 
 fetch_nchan_tarball() {
