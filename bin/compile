@@ -11,9 +11,11 @@ nchan_version="1.2.7"
 nginx_version="1.18.0"
 if [ $NCHAN_VERSION ]; then
     nchan_version=$NCHAN_VERSION
+    echo "-----> nchan-buildpack: Using custom nchan version ${nchan_version}"
 fi
 if [ $NGINX_VERSION ]; then
     nginx_version=$NGINX_VERSION
+    echo "-----> nchan-buildpack: Using custom nginx version ${nginx_version}"
 fi
 
 fetch_nchan_tarball() {
