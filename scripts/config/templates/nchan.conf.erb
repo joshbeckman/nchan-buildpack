@@ -1,6 +1,6 @@
 daemon off;
 #Heroku dynos have at least 4 cores.
-worker_processes <%= ENV['NCHAN_WORKERS'] || 4 %>;
+worker_processes <%= ENV['NCHAN_WORKERS'] || 'auto' %>;
 
 events {
 	use epoll;

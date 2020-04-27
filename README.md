@@ -21,7 +21,7 @@ NGINX_VERSION=1.18.0
 
 # env variables available (with default) in the default nchan.conf
 # set upon web server/process start
-NCHAN_WORKERS=4
+NCHAN_WORKERS=auto
 NCHAN_WORKER_CONNECTIONS=1024
 NCHAN_SUB_TIMEOUT=25
 PORT=<set by heroku>
