@@ -35,6 +35,14 @@ If you decide to use your own `Procfile` (e.g. you want to run a [local auth ser
 web: (PORT=3000 npm start) & bin/boot
 ~~~
 
+If you want nchan/nginx to wait until another app has started before booting itself, you can set the environment variable `NCHAN_INITIALIZE_APP` to any value. If present, nchan will wait until a file at `/tmp/app-initialized` exists before booting itself.
+
+```
+NCHAN_INITIALIZE_APP=true
+# then, to finish booting nchan:
+touch /tmp/app-initialized
+```
+
 ## Testing
 
 ~~~sh

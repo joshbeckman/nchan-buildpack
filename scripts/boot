@@ -63,6 +63,20 @@ else
     trap '' INT;
 fi
 
+if [ $NCHAN_INITIALIZE_APP ]
+then
+  FILE="/tmp/app-initialized"
+
+  # We block on app-initialized so that when nginx binds to $PORT
+  # are app is ready for traffic.
+  while [[ ! -f "$FILE" ]]
+  do
+    echo 'App initialization...'
+    sleep 1
+  done
+  echo 'App initialized'
+fi
+
 # we are now launching a subshell for each of the tasks (log tail, web server)
 # 1) each subshell has a trap on EXIT that echos the command name to FD 3 (see the FIFO set up above)
 # 1a) a 'read' at the end of the script will block on reading from that FD and then trigger the exit trap above, which does the cleanup
