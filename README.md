@@ -13,12 +13,9 @@ $ heroku buildpacks:add https://github.com/andjosh/nchan-buildpack.git
 
 ## Configuration/Options
 
-This buildpack currently installs Nchan v1.2.7 and Nginx v1.18.0 by default. Those versions are configurable via environment variable.
+This buildpack currently installs Nchan v1.2.7 and Nginx v1.18.0 by default. To use a different version of Nchan, specify a tag in the heroku buildpack URL (to request a new version of Nchan be tagged, please open an issue).
 
 ~~~sh
-NCHAN_VERSION=1.2.7
-NGINX_VERSION=1.18.0
-
 # env variables available (with default) in the default nchan.conf
 # set upon web server/process start
 NCHAN_WORKERS=auto
